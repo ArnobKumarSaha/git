@@ -19,8 +19,12 @@ For example, current commit history is c1->c2->c3->c4->c5, `c5` is head(latest).
 
 To change commit message of `c2` , run `git rebase -i HEAD~4`. set `reword` keyword in the c2 commit. Don't worry. The keywords & their meaning will be in the promt.
 
-To combine c3 & c4 into one commit, `git rebase -i HEAD~3`. Set `squash` keyword on c4 commit. 
+To combine c3 & c4 into one commit, `git rebase -i HEAD~3`. Set `squash` keyword on c4 commit. You can use `drop` keyword to delete a particular commit.
 
+#### Adding changes to an old commit :: 
+First add a new commit with 'fixup' prefix. `git commit --fixup <commit-hash>`. Then, run interactive rebase command with `--autosquash` option. And its done. nothing to do in the promt, git already have done our work !
+
+One thing to keep in mind is, the interactive promt actually shows the commits in the reverse order of 'git log' output.
 
 ### extras :
 `git rebase --abort` to undo everything & start fresh

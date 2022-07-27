@@ -8,13 +8,24 @@ If some file contains changes on multiple topic, use `git add -p file_name`. thi
 ## branch
 
 ## checkout
+`git checkout -b <branch-name>` create & checkout to a branch.
+`git checkout -- .` remove all the current-changes.
 
 ## cherry-pick
 For example, you accidentally commited into the `master`. Now to take that commit into `feature`, run `git cherry-pick <commit-hash>` from feature_branch. 
 Clean up the master with `git reset --hard HEAD~1`.
 
+## clean
+`git clean -df` will remove all the untracked directories and untracked filed.
+
 ## commmit
 `git commit --amend -m "commit_message"` to change the last commit msg.
+
+## config
+`git config --global user.name "my_name"`. 'user.email' is also important to set.
+`git config --list`
+
+## diff
 
 ## fetch
 
@@ -26,6 +37,9 @@ Clean up the master with `git reset --hard HEAD~1`.
 `git log --grep="refactor" --before="2021-07-05" --auther="arnob"` will show all the commits that have 'refactor' in that message & commited before 5th july,21 by arnob.
 
 `git log -- readme.md` will show the commits those are associated with readme.md file.
+
+Use `git log --all file_name` to show all commits (commits inside a pr too). The above will show only the merged commits.
+Add `--pretty=format:%H` option to only show the hashes.
 
 `git log feature..master` will show all the commits that are in master, but not in feature.
 
@@ -41,13 +55,15 @@ Clean up the master with `git reset --hard HEAD~1`.
 ## reflog
 This is the live git history. For example, you ran disastrous command which you shouldn't run. Now to undo, copy the last commit hash before your dangerous command. & run `git branch new_branch <commit-hash>`. This new branch is in the undo state. 
 
+You could also checkout to a reflog-hash & then make branch from it. (you will be in detached HEAD for somethime though)
+
 ## reset
 `git reset --hard <commit-hash>` will throw out all the commits after the given commit-hash.
 `git reset --hard HEAD~N` will throw out last N commits.
 
 `git reset --mixed HEAD~N` will throw out the commits, but not changes. All the local changes & the changes of the throw-out commits will still remain (in `unstaged` status). This is the default.
 
-`--soft` is almost like `--mixed`. Nut all the local changes & the change of the throw-out commits will still be there on `staged` status.
+`--soft` is almost like `--mixed`. Nut all the local changes & the change of the throw-out commits will still be there on `staged` status. Note that, '--hard' doesn't work with untracked files. It keeps the untracked files as-it-is.
 
 Info: `HEAD~1` is same as `HEAD^`. `git reset HEAD` will throw 0 commits (so head remains same), just the local changes.
 
@@ -60,10 +76,16 @@ Use `git restore -p file_name` to either keep or discard the chnages of the file
 
 This will also word on branches too.
 
+`git restore --source <revision-hash> file_name` to restore a file as it was in a particular revision. Look at `git log` to get the revision hash.
+
 ## revert
 To throw up the changes of an older commit, run `git revert <older_commit_hash>`. This will make another commit which will contain the exact opposite changes of our given commit.
 
 ## stash
+`git stash save "stash-message"`
+`git stash apply stash@{x}`, set x accordingly. the stashed will be in the list though. Use `git stash pop` to also remove the stash.
+
+stash@{0} is the most recent. bigger number means more older. `pop` pops up the recent. use `git stash drop <stash-id>` to drop a stash without applying it. `clear` to drop all.
 
 ## submodule
 
