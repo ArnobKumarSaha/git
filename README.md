@@ -5,7 +5,14 @@ A single commit should only combine changes from the same topic.
 To achieve this, stage the files carefully with `git add file_name` command.
 If some file contains changes on multiple topic, use `git add -p file_name`. this will show a promt to select or not a partical changes for `add`.
 
+`git add -A` (or --all) will stage all the files of the git repo. It doesn't make difference if it was run from a sub-directory or not. -A is the difault bahaviour of git add command.
+
+`git add -u` (--update) will stage all the files except the untracked ones.
+Also, don't use `git add *` as it is more linux specific & it can show unexpected behaviours for deleted & hidden files.
+
 ## branch
+`git branch -m <old_name> <new_name>` to rename branches.
+Use `-D` for force deletion, `-r` to list the remote branches only, & `-a` to see all branches.
 
 ## checkout
 `git checkout -b <branch-name>` create & checkout to a branch.
@@ -28,6 +35,7 @@ Clean up the master with `git reset --hard HEAD~1`.
 ## diff
 
 ## fetch
+`git fetch --all` to get the updated code from remote. It will not delete an already fetched remote branch from local (for example origin/feature1), even if it has been deleted in the actual repo. Use `--prune` to perform this type of complete syncup. 
 
 ## log
 `git log --oneline --graph`. To see only the commit message, oneline is very useful.
@@ -61,7 +69,7 @@ You could also checkout to a reflog-hash & then make branch from it. (you will b
 `git reset --hard <commit-hash>` will throw out all the commits after the given commit-hash.
 `git reset --hard HEAD~N` will throw out last N commits.
 
-`git reset --mixed HEAD~N` will throw out the commits, but not changes. All the local changes & the changes of the throw-out commits will still remain (in `unstaged` status). This is the default.
+`git reset --mixed HEAD~N` will throw out the commits, but not changes. All the local changes & the changes of the throw-out commits will still remain (in `unstaged` status). This is the default.  If you just run `git reset` this will be evaluated as `git reset --mixed HEAD`, which is simply unstaging  all the locally-changed files.
 
 `--soft` is almost like `--mixed`. Nut all the local changes & the change of the throw-out commits will still be there on `staged` status. Note that, '--hard' doesn't work with untracked files. It keeps the untracked files as-it-is.
 
