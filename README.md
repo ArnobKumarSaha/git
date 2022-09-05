@@ -18,6 +18,9 @@ Use `-D` for force deletion, `-r` to list the remote branches only, & `-a` to se
 `git checkout -b <branch-name>` create & checkout to a branch.
 `git checkout -- .` remove all the current-changes.
 
+To create a local branch from a remote branch
+`git checkout -b <local_branch_name> origin/<remote_branch_name>`
+
 ## cherry-pick
 For example, you accidentally commited into the `master`. Now to take that commit into `feature`, run `git cherry-pick <commit-hash>` from feature_branch. 
 Clean up the master with `git reset --hard HEAD~1`.
